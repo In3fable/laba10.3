@@ -1,0 +1,118 @@
+#include <locale.h>
+#include <stdio.h>
+#include <math.h>
+double fa(double x)
+{
+	double y;
+	if (x <= 3) {
+		y = pow(x, 2) - 3 * x + 9;
+	}
+	else  {
+		y = 1 / (pow(x, 3) + 3);
+	}
+	return y;
+}
+double fb(double x)
+{
+	double z;
+		z = x * exp(sin(pow(x , 2)));
+	return z;
+}
+void nomer1()
+{
+	double x;
+	puts("Введите x");
+	scanf_s("%lf", &x);
+	printf("fa(x)=%lf , fb(x)=%lf\n", fa(x), fb(x));
+	printf("Произведение F1(x) * F2(x) = %lf\nРазность квадратов F1(x)^2-F2(x)^2=%lf\nУдвоенная сумма (F1(x)+F2(x))*2=%lf\n", fa(x) * fb(x), pow(fa(x), 2) - pow(fb(x), 2), 2 * (fa(x) + fb(x)));
+}
+
+void name()
+{
+	printf("2 Квадрата\n");
+}
+float area_3str(float a, float b, float c) {
+	float S;
+	S = pow(a, 2) + pow(b, 2) - (2 * pow(c,2));
+	return S;
+}
+int prov(int x, int y, int xg1, int xg2, int yg1)
+	{
+		if ((x >= -xg1 && x < -xg2 && y >= 0 && y < xg1) || (x >= -xg2 && x < 0 && y >= xg2 && y < xg1) || (x >= -xg2 && x < 0 && y < 0 && y >= -yg1) || (x >= 0 && x < yg1 && y >= -yg1 && y < xg2)) return 1;
+		else return 0;
+	}
+
+paint(char m, float s1, float s2, float s3)
+{
+	float xg1,xg2,yg1;
+	int x, y, Y = 20, X = 20;
+	xg1 = s1;
+	xg2 = s3;
+	yg1 = (s2 - s3);
+	for (y = Y; y > -Y; --y) {
+
+		for (x = -X; x < X; ++x)
+		{
+			if (prov(x, y, xg1, xg2, yg1)) printf("%c ",m);
+			else printf("  ");
+		}
+		printf("\n");
+	}
+}
+void nomer3()
+{
+	name();
+	float s1, s2, s3;
+	int x, y, z;
+	
+	for (int l = 1; l > 0;)
+	{
+		int z;
+		puts("Вывод определения фигуры - 1\nВывод площади фигуры - 2\nВывод фигуры - 3\nВыход из программы - 4\n");
+		scanf_s("%d", &z);
+		switch (z)
+		{
+		case 1:
+
+			printf("Определение фигуры - ");
+			name();
+			break;
+
+
+		case 2:
+
+
+			printf("Введите  стороны квадратов A1,A2,A3:\n");
+			scanf_s("%f%f%f",  &s1, &s2, &s3);
+			printf("Площадь фигуры - %f\n", area_3str(s1, s2, s3));
+			break;
+
+
+
+		case 3:
+			char m;
+			printf("Введите символ\n");
+			while (getchar() != '\n');
+			scanf_s("%c", &m);
+			getchar();
+			printf("Введите стороны квадратов A1,A2,A3:\n");
+			scanf_s("%f%f%f", &s1, &s2, &s3);
+			paint(m, s1, s2, s3);
+			
+			break;
+
+
+
+		case 4:
+			printf("Программа завершена");
+			l = -1;
+			break;
+		}
+	}
+}
+
+void main()
+{
+	setlocale(LC_ALL, "RUS");
+	nomer3();
+}
